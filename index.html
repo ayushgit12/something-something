@@ -3,13 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Portfolio</title>
+    <title>Dynamic Portfolio</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <!-- Input Form to Update Portfolio -->
+    <div style="text-align: center; margin-bottom: 20px;">
+        <h2>Enter Your Portfolio Details</h2>
+        <input type="text" id="name-input" placeholder="Enter your name" style="padding: 10px; margin: 10px;">
+        <input type="text" id="about-input" placeholder="Enter about me" style="padding: 10px; margin: 10px;">
+        <input type="text" id="project-input" placeholder="Enter projects (comma separated)" style="padding: 10px; margin: 10px;">
+        <button onclick="updatePortfolio()" style="padding: 10px 20px;">Update Portfolio</button>
+    </div>
+
     <header>
         <div class="container">
-            <h1>Mr X</h1>
+            <h1 id="user-name">Mr X</h1>
             <nav>
                 <ul>
                     <li><a href="#about">About</a></li>
@@ -19,14 +28,14 @@
             </nav>
         </div>
     </header>
-<div style="text-align: center;">
-    <img style="height: 200px;" src="cl.png" alt="">
-    <p style="font-size: 40px ; color: red;">CyberLabs</p>
-</div>
+    <div style="text-align: center;">
+        <img style="height: 200px;" src="cl.png" alt="">
+        <p style="font-size: 40px ; color: red;">CyberLabs</p>
+    </div>
     <section id="about">
         <div class="container">
             <h2>About Me</h2>
-            <p>I am a future Web Developer. Going to have a lot of fun on this CyberLabs Journey</p>
+            <p id="about-me">I am a future Web Developer. Going to have a lot of fun on this CyberLabs Journey</p>
         </div>
         <img src="user.jpg" alt="">
     </section>
@@ -34,24 +43,17 @@
     <section id="projects">
         <div class="container">
             <h2>Projects</h2>
-            <div class="project">
-                <h3>Project Title 1</h3>
-                <p>Brief description of the project. What was it about, technologies used, and your role.</p>
+            <div id="projects-list">
+                <!-- Dynamically Generated Projects Will Appear Here -->
             </div>
-            <div class="project">
-                <h3>Project Title 2</h3>
-                <p>Brief description of the project. What was it about, technologies used, and your role.</p>
-            </div>
-            <!-- Add more projects as needed -->
         </div>
     </section>
 
     <section id="contact">
         <div class="container">
             <h2>Contact</h2>
-            <p>Email: <a href="mailto:youremail@example.com">123@gmail.com</a></p>
+            <p>Email: <a href="mailto:123@gmail.com">123@gmail.com</a></p>
             <p>LinkedIn: <a href="https://www.linkedin.com/company/cyberlabs-iitism/mycompany/" target="_blank">Your LinkedIn</a></p>
-            <!-- Add other contact methods if needed -->
         </div>
     </section>
 
@@ -60,5 +62,32 @@
             <p>&copy; 2024 Your Name. All rights reserved.</p>
         </div>
     </footer>
+
+    <script>
+        function updatePortfolio() {
+            // Get user input values
+            const userName = document.getElementById('name-input').value;
+            const aboutMe = document.getElementById('about-input').value;
+            const projectInput = document.getElementById('project-input').value;
+            const projects = projectInput.split(',');  // Split projects by comma
+
+            // Update name and about me section
+            document.getElementById('user-name').textContent = userName || 'Mr X';  // Default to 'Mr X' if no input
+            document.getElementById('about-me').textContent = aboutMe || 'I am a future Web Developer. Going to have a lot of fun on this CyberLabs Journey';
+
+            // Update projects section
+            const projectsList = document.getElementById('projects-list');
+            projectsList.innerHTML = '';  // Clear previous projects
+
+            projects.forEach(project => {
+                if (project.trim()) {
+                    const projectDiv = document.createElement('div');
+                    projectDiv.className = 'project';
+                    projectDiv.innerHTML = `<h3>${project.trim()}</h3><p>Brief description of the project. What was it about, technologies used, and your role.</p>`;
+                    projectsList.appendChild(projectDiv);
+                }
+            });
+        }
+    </script>
 </body>
 </html>
